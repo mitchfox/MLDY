@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
 
 export default CustomButton = (props) => {
     const {
@@ -7,6 +7,8 @@ export default CustomButton = (props) => {
         style = {},
         textStyle = {},
         onPress
+
+        
     } = props;
 
     return (

@@ -1,60 +1,39 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList, Image, Linking, TextInput, Keyboard } from "react-native";
-import CustomButton from '../components/CustomButton';
 import firebase from 'firebase';
+import Loader from '../../components/Loader';
 
-export default class HomeScreen extends React.Component {
-   
-    _isMounted = false;
-    
+export default class LoadingScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
+
         }
     }
+
     static navigationOptions = {
         header: null
     }
 
     componentDidMount() {
-        this._isMounted = true;
-        firebase.auth().onAuthStateChanged(authenticate => {
-            if(authenticate) {
-                this.setState({
-                    name: authenticate.displayName,                })
+        firebase.auth().onAuthStateChanged( (authenticate) => {
+            if (authenticate) {
+                this.props.navigation.replace("Home");
             } else {
-                this.props.navigation.replace('Login')
+                this.props.navigation.replace("Login");
             }
         })
     }
-    // componentWillUnmount() {
-    //     this._isMounted = false;
-    //   }
-
-    logoutUser = () => {
-        firebase.auth().signOut()
-        .then( () => console.log("signout"))
-        .catch( error => alert(error.message))
-    }
 
 
-    // Render
+    // Render login or register depending on login or register (e.g Creating you a MLDY Account || Welcome back )
     render() {
-
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Welcome, {this.state.name} 💪</Text>
-                {/* <Text style={styles.descriptionText}>Email: {this.state.email}</Text> */}
-                {/* <Text style={styles.descriptionText}>Daily Quote</Text>
-                <Text style={styles.quoteText}>“Without music, life would be a mistake” ― Friedrich Nietzsche.</Text> */}
-                <CustomButton
-                    title={"Log Out"}
-                    style={styles.button}
-                    onPress={() => {
-                        this.logoutUser();
-                    }}
-                />
+                
+                <Loader />
+
+
             </View>
         );
     }
@@ -67,6 +46,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         marginLeft: 20,
         marginRight: 20,
+        marginTop: 40
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        textTransform: 'capitalize',
     },
     textLogoContainer: {
         alignItems: 'center',
@@ -75,10 +60,9 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: '800',
     },
-    title: {
+    titleText: {
         fontSize: 28,
         fontWeight: 'bold',
-        marginTop: 40,
     },
     descriptionText: {
         fontSize: 16,

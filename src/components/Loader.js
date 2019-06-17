@@ -16,8 +16,8 @@ const Loader = props => {
         <View style={styles.activityIndicatorWrapper}>
           <ActivityIndicator
             animating={loading}
-            color={'#14a5ff'} />
-            <Text style={{ fontWeight:'bold', color: '#222222' }}>Loading Amazing Events!</Text>
+            color={'#FD9774'} />
+            <Text style={{ fontWeight:'bold', color: '#222222' }}>MLDY is loading!</Text>
         </View>
       </View>
     </Modal>
